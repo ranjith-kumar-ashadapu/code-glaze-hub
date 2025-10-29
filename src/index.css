@@ -132,4 +132,27 @@ All colors MUST be HSL.
   .gradient-text {
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
   }
+
+  /* Coding theme loader animation */
+  .code-loader {
+    @apply relative w-20 h-20;
+  }
+
+  .code-loader::before,
+  .code-loader::after {
+    content: '<>';
+    @apply absolute top-0 left-0 w-full h-full flex items-center justify-center text-primary text-4xl font-mono font-bold;
+    animation: codeFlicker 1.5s infinite;
+  }
+
+  .code-loader::after {
+    content: '{}';
+    animation: codeFlicker 1.5s infinite 0.75s;
+    @apply text-secondary;
+  }
+
+  @keyframes codeFlicker {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.95); }
+  }
 }

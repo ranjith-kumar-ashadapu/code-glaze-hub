@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAdminRole } from '@/hooks/useAdminRole';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Navigation from '@/components/Navigation';
@@ -33,7 +34,8 @@ const difficultyColors = {
 };
 
 const Admin = () => {
-  const { user, loading: authLoading } = useAuth();
+  const { user } = useAuth();
+  const { isAdmin, loading: roleLoading } = useAdminRole();
   const navigate = useNavigate();
   const [problems, setProblems] = useState<Problem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -41,16 +43,20 @@ const Admin = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      navigate('/auth');
+    if (!roleLoading) {
+      if (!user) {
+        navigate('/auth');
+      } else if (!isAdmin) {
+        navigate('/admin-setup');
+      }
     }
-  }, [user, authLoading, navigate]);
+  }, [user, isAdmin, roleLoading, navigate]);
 
   useEffect(() => {
-    if (user) {
+    if (user && isAdmin) {
       fetchProblems();
     }
-  }, [user]);
+  }, [user, isAdmin]);
 
   const fetchProblems = async () => {
     try {
@@ -99,10 +105,10 @@ const Admin = () => {
     }
   };
 
-  if (authLoading || !user) {
+  if (roleLoading || !user || !isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted">
+        <div className="code-loader" />
       </div>
     );
   }
@@ -111,7 +117,7 @@ const Admin = () => {
     <div className="min-h-screen">
       <Navigation />
 
-      <main className="container mx-auto px-4 pt-32 pb-20">
+      <main className="container mx-auto px-4 pt-24 pb-20">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-8 animate-fade-in">
             <div>
@@ -125,12 +131,8 @@ const Admin = () => {
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-1 gap-4">
-              {[1, 2, 3].map((i) => (
-                <Card key={i} className="glass-card animate-pulse">
-                  <CardContent className="h-24" />
-                </Card>
-              ))}
+            <div className="flex items-center justify-center py-20">
+              <div className="code-loader" />
             </div>
           ) : problems.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 animate-fade-in-scale">

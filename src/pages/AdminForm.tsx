@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAdminRole } from '@/hooks/useAdminRole';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,12 +20,14 @@ const problemSchema = z.object({
   solution: z.string().trim().min(1, 'Solution is required'),
   explanation: z.string().trim().min(1, 'Explanation is required'),
   reference_link: z.string().trim().url('Invalid URL').optional().or(z.literal('')),
+  youtube_explanation_link: z.string().trim().url('Invalid YouTube URL').optional().or(z.literal('')),
   difficulty: z.enum(['Easy', 'Medium', 'Hard']),
 });
 
 const AdminForm = () => {
   const { id } = useParams();
-  const { user, loading: authLoading } = useAuth();
+  const { user } = useAuth();
+  const { isAdmin, loading: roleLoading } = useAdminRole();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -34,22 +37,27 @@ const AdminForm = () => {
     solution: '',
     explanation: '',
     reference_link: '',
+    youtube_explanation_link: '',
     difficulty: 'Medium' as 'Easy' | 'Medium' | 'Hard',
   });
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(!!id);
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      navigate('/auth');
+    if (!roleLoading) {
+      if (!user) {
+        navigate('/auth');
+      } else if (!isAdmin) {
+        navigate('/admin-setup');
+      }
     }
-  }, [user, authLoading, navigate]);
+  }, [user, isAdmin, roleLoading, navigate]);
 
   useEffect(() => {
-    if (id && user) {
+    if (id && user && isAdmin) {
       fetchProblem();
     }
-  }, [id, user]);
+  }, [id, user, isAdmin]);
 
   const fetchProblem = async () => {
     try {
@@ -76,6 +84,7 @@ const AdminForm = () => {
         solution: data.solution,
         explanation: data.explanation,
         reference_link: data.reference_link || '',
+        youtube_explanation_link: data.youtube_explanation_link || '',
         difficulty: data.difficulty as 'Easy' | 'Medium' | 'Hard',
       });
     } catch (error: any) {
@@ -107,8 +116,13 @@ const AdminForm = () => {
       }
 
       const dataToSave = {
-        ...validation.data,
+        title: validation.data.title,
+        description: validation.data.description,
+        solution: validation.data.solution,
+        explanation: validation.data.explanation,
+        difficulty: validation.data.difficulty,
         reference_link: validation.data.reference_link || null,
+        youtube_explanation_link: validation.data.youtube_explanation_link || null,
       };
 
       if (id) {
@@ -148,10 +162,10 @@ const AdminForm = () => {
     }
   };
 
-  if (authLoading || fetchLoading) {
+  if (roleLoading || fetchLoading || !user || !isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted">
+        <div className="code-loader" />
       </div>
     );
   }
@@ -160,7 +174,7 @@ const AdminForm = () => {
     <div className="min-h-screen">
       <Navigation />
 
-      <main className="container mx-auto px-4 pt-32 pb-20">
+      <main className="container mx-auto px-4 pt-24 pb-20">
         <div className="max-w-4xl mx-auto">
           <Button
             variant="ghost"
@@ -254,6 +268,17 @@ const AdminForm = () => {
                     value={formData.reference_link}
                     onChange={(e) => setFormData({ ...formData, reference_link: e.target.value })}
                     placeholder="https://leetcode.com/problems/two-sum/"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="youtube_explanation_link">YouTube Explanation Link (optional)</Label>
+                  <Input
+                    id="youtube_explanation_link"
+                    type="url"
+                    value={formData.youtube_explanation_link}
+                    onChange={(e) => setFormData({ ...formData, youtube_explanation_link: e.target.value })}
+                    placeholder="https://www.youtube.com/watch?v=..."
                   />
                 </div>
 

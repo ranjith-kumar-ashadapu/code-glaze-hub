@@ -16,6 +16,7 @@ interface Problem {
   solution: string;
   explanation: string;
   reference_link: string | null;
+  youtube_explanation_link: string | null;
   difficulty: 'Easy' | 'Medium' | 'Hard';
   created_at: string;
 }
@@ -87,11 +88,8 @@ const ProblemDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen">
-        <Navigation />
-        <div className="container mx-auto px-4 pt-32">
-          <div className="glass-card h-screen animate-pulse" />
-        </div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted">
+        <div className="code-loader" />
       </div>
     );
   }
@@ -102,7 +100,7 @@ const ProblemDetail = () => {
     <div className="min-h-screen">
       <Navigation />
 
-      <main className="container mx-auto px-4 pt-32 pb-20">
+      <main className="container mx-auto px-4 pt-24 pb-20">
         <div className="max-w-5xl mx-auto">
           {/* Back Button */}
           <Button
@@ -189,19 +187,34 @@ const ProblemDetail = () => {
             </div>
           </div>
 
-          {/* Reference Link */}
-          {problem.reference_link && (
+          {/* Reference Links */}
+          {(problem.reference_link || problem.youtube_explanation_link) && (
             <div className="glass-card animate-fade-in-scale">
-              <h2 className="text-xl font-semibold mb-3">Reference</h2>
-              <a
-                href={problem.reference_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-primary hover:underline"
-              >
-                <ExternalLink className="h-4 w-4" />
-                View Original Problem
-              </a>
+              <h2 className="text-xl font-semibold mb-3">Additional Resources</h2>
+              <div className="flex flex-col gap-3">
+                {problem.reference_link && (
+                  <a
+                    href={problem.reference_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary hover:underline"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    View Original Problem
+                  </a>
+                )}
+                {problem.youtube_explanation_link && (
+                  <a
+                    href={problem.youtube_explanation_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-secondary hover:underline"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    Watch YouTube Explanation
+                  </a>
+                )}
+              </div>
             </div>
           )}
         </div>

@@ -9,6 +9,7 @@ import Auth from "./pages/Auth";
 import ProblemDetail from "./pages/ProblemDetail";
 import Admin from "./pages/Admin";
 import AdminForm from "./pages/AdminForm";
+import AdminSetup from "./pages/AdminSetup";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/new" element={<AdminForm />} />
             <Route path="/admin/edit/:id" element={<AdminForm />} />
+            <Route path="/admin-setup" element={<AdminSetup />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

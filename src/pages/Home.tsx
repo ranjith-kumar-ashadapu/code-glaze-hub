@@ -56,7 +56,8 @@ const Home = () => {
 
     if (searchQuery) {
       filtered = filtered.filter((p) =>
-        p.title.toLowerCase().includes(searchQuery.toLowerCase())
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.description.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -72,7 +73,7 @@ const Home = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-24 pb-16 px-4">
         <div className="container mx-auto text-center">
           <div className="inline-flex items-center justify-center p-3 rounded-2xl glass-card mb-6 animate-fade-in">
             <Code2 className="h-16 w-16 text-primary" />
@@ -115,15 +116,13 @@ const Home = () => {
       <section className="pb-20 px-4">
         <div className="container mx-auto">
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="glass-card h-64 animate-pulse" />
-              ))}
+            <div className="flex items-center justify-center py-20">
+              <div className="code-loader" />
             </div>
           ) : filteredProblems.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {filteredProblems.map((problem, index) => (
-                <div key={problem.id} style={{ animationDelay: `${index * 0.1}s` }}>
+                <div key={problem.id} style={{ animationDelay: `${index * 0.05}s` }}>
                   <ProblemCard
                     id={problem.id}
                     title={problem.title}
