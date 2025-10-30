@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import ProblemCard from '@/components/ProblemCard';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
 import Navigation from '@/components/Navigation';
 import { Search, Code2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface Problem {
   id: string;
@@ -15,6 +17,12 @@ interface Problem {
   created_at: string;
 }
 
+const difficultyColors = {
+  Easy: 'bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20',
+  Medium: 'bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/20',
+  Hard: 'bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/20',
+};
+
 const Home = () => {
   const [problems, setProblems] = useState<Problem[]>([]);
   const [filteredProblems, setFilteredProblems] = useState<Problem[]>([]);
@@ -22,6 +30,7 @@ const Home = () => {
   const [difficultyFilter, setDifficultyFilter] = useState<string>('all');
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProblems();
@@ -112,7 +121,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Problems Grid */}
+      {/* Problems Index Table */}
       <section className="pb-20 px-4">
         <div className="container mx-auto">
           {loading ? (
@@ -120,18 +129,56 @@ const Home = () => {
               <div className="code-loader" />
             </div>
           ) : filteredProblems.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {filteredProblems.map((problem, index) => (
-                <div key={problem.id} style={{ animationDelay: `${index * 0.05}s` }}>
-                  <ProblemCard
-                    id={problem.id}
-                    title={problem.title}
-                    description={problem.description}
-                    difficulty={problem.difficulty}
-                    createdAt={problem.created_at}
-                  />
-                </div>
-              ))}
+            <div className="glass-card overflow-hidden animate-fade-in">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-border/50 hover:bg-transparent">
+                    <TableHead className="w-12">#</TableHead>
+                    <TableHead>Title</TableHead>
+                    <TableHead className="hidden md:table-cell">Description</TableHead>
+                    <TableHead className="w-32">Difficulty</TableHead>
+                    <TableHead className="hidden lg:table-cell w-40">Date</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredProblems.map((problem, index) => {
+                    const date = new Date(problem.created_at).toLocaleDateString('en-US', { 
+                      month: 'short', 
+                      day: 'numeric', 
+                      year: 'numeric' 
+                    });
+                    const preview = problem.description.length > 100 
+                      ? problem.description.substring(0, 100) + '...' 
+                      : problem.description;
+                    
+                    return (
+                      <TableRow 
+                        key={problem.id}
+                        className="cursor-pointer border-border/50 hover:bg-accent/50 transition-colors"
+                        onClick={() => navigate(`/problem/${problem.id}`)}
+                      >
+                        <TableCell className="font-medium text-muted-foreground">
+                          {index + 1}
+                        </TableCell>
+                        <TableCell className="font-semibold">
+                          {problem.title}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell text-muted-foreground text-sm">
+                          {preview}
+                        </TableCell>
+                        <TableCell>
+                          <Badge className={`${difficultyColors[problem.difficulty]} border`}>
+                            {problem.difficulty}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="hidden lg:table-cell text-muted-foreground text-sm">
+                          {date}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
             </div>
           ) : (
             <div className="text-center py-20">
