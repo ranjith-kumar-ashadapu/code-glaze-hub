@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       problems: {
         Row: {
+          category: string | null
           created_at: string
           created_by: string
           description: string
@@ -29,6 +30,7 @@ export type Database = {
           youtube_explanation_link: string | null
         }
         Insert: {
+          category?: string | null
           created_at?: string
           created_by?: string
           description: string
@@ -42,6 +44,7 @@ export type Database = {
           youtube_explanation_link?: string | null
         }
         Update: {
+          category?: string | null
           created_at?: string
           created_by?: string
           description?: string

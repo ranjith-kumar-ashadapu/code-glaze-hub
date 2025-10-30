@@ -14,6 +14,7 @@ interface Problem {
   title: string;
   description: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
+  category: string | null;
   created_at: string;
 }
 
@@ -28,6 +29,8 @@ const Home = () => {
   const [filteredProblems, setFilteredProblems] = useState<Problem[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [difficultyFilter, setDifficultyFilter] = useState<string>('all');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -38,17 +41,24 @@ const Home = () => {
 
   useEffect(() => {
     filterProblems();
-  }, [problems, searchQuery, difficultyFilter]);
+  }, [problems, searchQuery, difficultyFilter, categoryFilter]);
 
   const fetchProblems = async () => {
     try {
       const { data, error } = await supabase
         .from('problems')
-        .select('id, title, description, difficulty, created_at')
+        .select('id, title, description, difficulty, category, created_at')
         .order('created_at', { ascending: true });
 
       if (error) throw error;
-      setProblems((data || []) as Problem[]);
+      const problemsData = (data || []) as Problem[];
+      setProblems(problemsData);
+      
+      // Extract unique categories
+      const uniqueCategories = Array.from(
+        new Set(problemsData.map(p => p.category).filter(Boolean))
+      ) as string[];
+      setCategories(uniqueCategories);
     } catch (error: any) {
       toast({
         title: 'Error',
@@ -74,6 +84,10 @@ const Home = () => {
       filtered = filtered.filter((p) => p.difficulty === difficultyFilter);
     }
 
+    if (categoryFilter !== 'all') {
+      filtered = filtered.filter((p) => p.category === categoryFilter);
+    }
+
     setFilteredProblems(filtered);
   };
 
@@ -96,7 +110,7 @@ const Home = () => {
           </p>
 
           {/* Search and Filter */}
-          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 mb-16 animate-fade-in-scale">
+          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 mb-16 animate-fade-in-scale">
             <div className="md:col-span-2 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
@@ -115,6 +129,17 @@ const Home = () => {
                 <SelectItem value="Easy">Easy</SelectItem>
                 <SelectItem value="Medium">Medium</SelectItem>
                 <SelectItem value="Hard">Hard</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+              <SelectTrigger className="glass-card h-12">
+                <SelectValue placeholder="All Categories" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                {categories.map(category => (
+                  <SelectItem key={category} value={category}>{category}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -137,6 +162,7 @@ const Home = () => {
                     <TableHead>Title</TableHead>
                     <TableHead className="hidden md:table-cell">Description</TableHead>
                     <TableHead className="w-32">Difficulty</TableHead>
+                    <TableHead className="hidden sm:table-cell w-32">Category</TableHead>
                     <TableHead className="hidden lg:table-cell w-40">Date</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -171,6 +197,15 @@ const Home = () => {
                             {problem.difficulty}
                           </Badge>
                         </TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          {problem.category ? (
+                            <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
+                              {problem.category}
+                            </Badge>
+                          ) : (
+                            <span className="text-muted-foreground text-xs">N/A</span>
+                          )}
+                        </TableCell>
                         <TableCell className="hidden lg:table-cell text-muted-foreground text-sm">
                           {date}
                         </TableCell>
@@ -185,7 +220,7 @@ const Home = () => {
               <Code2 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-2xl font-semibold mb-2">No problems found</h3>
               <p className="text-muted-foreground">
-                {searchQuery || difficultyFilter !== 'all'
+                {searchQuery || difficultyFilter !== 'all' || categoryFilter !== 'all'
                   ? 'Try adjusting your filters'
                   : 'Check back soon for new problems'}
               </p>

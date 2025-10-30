@@ -22,6 +22,7 @@ const problemSchema = z.object({
   reference_link: z.string().trim().url('Invalid URL').optional().or(z.literal('')),
   youtube_explanation_link: z.string().trim().url('Invalid YouTube URL').optional().or(z.literal('')),
   difficulty: z.enum(['Easy', 'Medium', 'Hard']),
+  category: z.string().trim().min(1, 'Category is required'),
 });
 
 const AdminForm = () => {
@@ -39,6 +40,7 @@ const AdminForm = () => {
     reference_link: '',
     youtube_explanation_link: '',
     difficulty: 'Medium' as 'Easy' | 'Medium' | 'Hard',
+    category: '',
   });
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(!!id);
@@ -86,6 +88,7 @@ const AdminForm = () => {
         reference_link: data.reference_link || '',
         youtube_explanation_link: data.youtube_explanation_link || '',
         difficulty: data.difficulty as 'Easy' | 'Medium' | 'Hard',
+        category: data.category || '',
       });
     } catch (error: any) {
       toast({
@@ -121,6 +124,7 @@ const AdminForm = () => {
         solution: validation.data.solution,
         explanation: validation.data.explanation,
         difficulty: validation.data.difficulty,
+        category: validation.data.category,
         reference_link: validation.data.reference_link || null,
         youtube_explanation_link: validation.data.youtube_explanation_link || null,
       };
@@ -221,6 +225,17 @@ const AdminForm = () => {
                       <SelectItem value="Hard">Hard</SelectItem>
                     </SelectContent>
                   </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="category">Category *</Label>
+                  <Input
+                    id="category"
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    placeholder="Array, String, Dynamic Programming, etc."
+                    required
+                  />
                 </div>
 
                 <div className="space-y-2">
