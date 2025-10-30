@@ -48,7 +48,7 @@ const Home = () => {
       const { data, error } = await supabase
         .from('problems')
         .select('id, title, description, difficulty, category, created_at')
-        .order('created_at', { ascending: true });
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
       const problemsData = (data || []) as Problem[];
