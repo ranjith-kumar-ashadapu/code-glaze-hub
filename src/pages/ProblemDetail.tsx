@@ -28,7 +28,7 @@ const difficultyColors = {
 };
 
 const ProblemDetail = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [problem, setProblem] = useState<Problem | null>(null);
   const [loading, setLoading] = useState(true);
@@ -36,22 +36,27 @@ const ProblemDetail = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    if (id) {
+    if (slug) {
       fetchProblem();
     }
-  }, [id]);
+  }, [slug]);
 
   const fetchProblem = async () => {
     try {
       const { data, error } = await supabase
         .from('problems')
-        .select('*')
-        .eq('id', id)
-        .maybeSingle();
+        .select('*');
 
       if (error) throw error;
+
+      // Find problem by matching slug to title
+      const matchedProblem = (data || []).find((p: any) => {
+        const problemSlug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        return problemSlug === slug;
+      });
+
       
-      if (!data) {
+      if (!matchedProblem) {
         toast({
           title: 'Problem not found',
           description: 'The requested problem does not exist',
@@ -61,7 +66,7 @@ const ProblemDetail = () => {
         return;
       }
 
-      setProblem(data as Problem);
+      setProblem(matchedProblem as Problem);
     } catch (error: any) {
       toast({
         title: 'Error',

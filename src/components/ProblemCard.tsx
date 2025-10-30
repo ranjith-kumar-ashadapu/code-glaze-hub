@@ -24,8 +24,10 @@ const ProblemCard = ({ id, title, description, difficulty, createdAt }: ProblemC
     year: 'numeric' 
   });
 
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
   return (
-    <Link to={`/problem/${id}`}>
+    <Link to={`/problem/${slug}`}>
       <div className="glass-card glass-hover cursor-pointer group h-full animate-fade-in-scale">
         <div className="flex items-start justify-between mb-4">
           <Badge className={`${difficultyColors[difficulty]} border`}>
