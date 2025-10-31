@@ -8,6 +8,7 @@ interface ProblemCardProps {
   description: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
   createdAt: string;
+  category?: string | null;
 }
 
 const difficultyColors = {
@@ -16,7 +17,7 @@ const difficultyColors = {
   Hard: 'bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/20',
 };
 
-const ProblemCard = ({ id, title, description, difficulty, createdAt }: ProblemCardProps) => {
+const ProblemCard = ({ id, title, description, difficulty, createdAt, category }: ProblemCardProps) => {
   const preview = description.length > 120 ? description.substring(0, 120) + '...' : description;
   const date = new Date(createdAt).toLocaleDateString('en-US', { 
     month: 'short', 
@@ -25,9 +26,10 @@ const ProblemCard = ({ id, title, description, difficulty, createdAt }: ProblemC
   });
 
   const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const catSlug = category ? category.toLowerCase().replace(/\s+/g, '-') : 'uncategorized';
 
   return (
-    <Link to={`/problem/${slug}`}>
+    <Link to={`/${catSlug}/${slug}`}>
       <div className="glass-card glass-hover cursor-pointer group h-full animate-fade-in-scale">
         <div className="flex items-start justify-between mb-4">
           <Badge className={`${difficultyColors[difficulty]} border`}>

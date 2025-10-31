@@ -28,7 +28,7 @@ const difficultyColors = {
 };
 
 const ProblemDetail = () => {
-  const { slug } = useParams();
+  const { category, slug } = useParams();
   const navigate = useNavigate();
   const [problem, setProblem] = useState<Problem | null>(null);
   const [loading, setLoading] = useState(true);
@@ -119,11 +119,11 @@ const ProblemDetail = () => {
           {/* Back Button */}
           <Button
             variant="ghost"
-            onClick={() => navigate('/')}
+            onClick={() => navigate(category ? `/${category}` : '/')}
             className="mb-6 gap-2"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Problems
+            Back to {category ? category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Problems'}
           </Button>
 
           {/* Problem Header */}

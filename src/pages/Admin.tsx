@@ -155,9 +155,11 @@ const Admin = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => {
+                          onClick={async () => {
                             const slug = problem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-                            navigate(`/problem/${slug}`);
+                            const { data } = await supabase.from('problems').select('category').eq('id', problem.id).single();
+                            const catSlug = data?.category ? data.category.toLowerCase().replace(/\s+/g, '-') : 'uncategorized';
+                            navigate(`/${catSlug}/${slug}`);
                           }}
                         >
                           <Eye className="h-4 w-4" />

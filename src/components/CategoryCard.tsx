@@ -22,7 +22,7 @@ const CategoryCard = ({ category, problemCount }: CategoryCardProps) => {
   return (
     <Card 
       className="glass-card glass-hover cursor-pointer group border-border/50"
-      onClick={() => navigate(`/category/${category.toLowerCase().replace(/\s+/g, '-')}`)}
+      onClick={() => navigate(`/${category.toLowerCase().replace(/\s+/g, '-')}`)}
     >
       <CardContent className="p-6 text-center">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary mb-4 group-hover:scale-110 transition-transform">

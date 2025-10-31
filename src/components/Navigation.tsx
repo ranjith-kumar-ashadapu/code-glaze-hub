@@ -47,7 +47,7 @@ const Navigation = () => {
             {categories.map(category => (
               <Link
                 key={category}
-                to={`/category/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                to={`/${category.toLowerCase().replace(/\s+/g, '-')}`}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {category}

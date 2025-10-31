@@ -23,9 +23,9 @@ const App = () => (
         <AuthProvider>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/category/:category" element={<Home />} />
+            <Route path="/:category" element={<Home />} />
+            <Route path="/:category/:slug" element={<ProblemDetail />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/problem/:slug" element={<ProblemDetail />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/new" element={<AdminForm />} />
             <Route path="/admin/edit/:id" element={<AdminForm />} />

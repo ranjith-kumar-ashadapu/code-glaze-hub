@@ -36,15 +36,15 @@ const Home = () => {
   const [showCategoryCards, setShowCategoryCards] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { category: urlCategory } = useParams();
+  const { category: categorySlug } = useParams();
 
   useEffect(() => {
     fetchProblems();
   }, []);
 
   useEffect(() => {
-    if (urlCategory) {
-      const decodedCategory = urlCategory.replace(/-/g, ' ');
+    if (categorySlug) {
+      const decodedCategory = categorySlug.replace(/-/g, ' ');
       const matchingCategory = categories.find(
         cat => cat.toLowerCase() === decodedCategory.toLowerCase()
       );
@@ -53,14 +53,14 @@ const Home = () => {
         setShowCategoryCards(false);
       }
     }
-  }, [urlCategory, categories]);
+  }, [categorySlug, categories]);
 
   useEffect(() => {
     filterProblems();
     setShowCategoryCards(
-      !searchQuery && difficultyFilter === 'all' && categoryFilter === 'all' && !urlCategory
+      !searchQuery && difficultyFilter === 'all' && categoryFilter === 'all' && !categorySlug
     );
-  }, [problems, searchQuery, difficultyFilter, categoryFilter, urlCategory]);
+  }, [problems, searchQuery, difficultyFilter, categoryFilter, categorySlug]);
 
   const fetchProblems = async () => {
     try {
@@ -213,12 +213,13 @@ const Home = () => {
                       ? problem.description.substring(0, 100) + '...' 
                       : problem.description;
                     const slug = problem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                    const catSlug = problem.category ? problem.category.toLowerCase().replace(/\s+/g, '-') : 'uncategorized';
                     
                     return (
                       <TableRow 
                         key={problem.id}
                         className="cursor-pointer border-border/50 hover:bg-accent/50 transition-colors"
-                        onClick={() => navigate(`/problem/${slug}`)}
+                        onClick={() => navigate(`/${catSlug}/${slug}`)}
                       >
                         <TableCell className="font-medium text-muted-foreground">
                           {index + 1}
