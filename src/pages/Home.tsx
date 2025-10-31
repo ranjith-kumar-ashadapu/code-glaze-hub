@@ -176,12 +176,13 @@ const Home = () => {
                     const preview = problem.description.length > 100 
                       ? problem.description.substring(0, 100) + '...' 
                       : problem.description;
+                    const slug = problem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
                     
                     return (
                       <TableRow 
                         key={problem.id}
                         className="cursor-pointer border-border/50 hover:bg-accent/50 transition-colors"
-                        onClick={() => navigate(`/problem/${problem.id}`)}
+                        onClick={() => navigate(`/problem/${slug}`)}
                       >
                         <TableCell className="font-medium text-muted-foreground">
                           {index + 1}
