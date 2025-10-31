@@ -155,7 +155,10 @@ const Admin = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => navigate(`/problem/${problem.id}`)}
+                          onClick={() => {
+                            const slug = problem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                            navigate(`/problem/${slug}`);
+                          }}
                         >
                           <Eye className="h-4 w-4" />
                         </Button>

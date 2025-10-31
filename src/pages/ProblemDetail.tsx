@@ -54,7 +54,6 @@ const ProblemDetail = () => {
         const problemSlug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
         return problemSlug === slug;
       });
-
       
       if (!matchedProblem) {
         toast({
