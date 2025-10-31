@@ -49,8 +49,18 @@ const ProblemDetail = () => {
 
       if (error) throw error;
 
+      if (!data || data.length === 0) {
+        toast({
+          title: 'Problem not found',
+          description: 'The requested problem does not exist',
+          variant: 'destructive',
+        });
+        navigate('/');
+        return;
+      }
+
       // Find problem by matching slug to title
-      const matchedProblem = (data || []).find((p: any) => {
+      const matchedProblem = data.find((p: any) => {
         const problemSlug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
         return problemSlug === slug;
       });
@@ -58,7 +68,7 @@ const ProblemDetail = () => {
       if (!matchedProblem) {
         toast({
           title: 'Problem not found',
-          description: 'The requested problem does not exist',
+          description: `No problem found with slug: ${slug}`,
           variant: 'destructive',
         });
         navigate('/');
