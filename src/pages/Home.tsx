@@ -5,9 +5,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import Navigation from '@/components/Navigation';
+import CategoryCard from '@/components/CategoryCard';
 import { Search, Code2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface Problem {
   id: string;
@@ -32,16 +33,34 @@ const Home = () => {
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showCategoryCards, setShowCategoryCards] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { category: urlCategory } = useParams();
 
   useEffect(() => {
     fetchProblems();
   }, []);
 
   useEffect(() => {
+    if (urlCategory) {
+      const decodedCategory = urlCategory.replace(/-/g, ' ');
+      const matchingCategory = categories.find(
+        cat => cat.toLowerCase() === decodedCategory.toLowerCase()
+      );
+      if (matchingCategory) {
+        setCategoryFilter(matchingCategory);
+        setShowCategoryCards(false);
+      }
+    }
+  }, [urlCategory, categories]);
+
+  useEffect(() => {
     filterProblems();
-  }, [problems, searchQuery, difficultyFilter, categoryFilter]);
+    setShowCategoryCards(
+      !searchQuery && difficultyFilter === 'all' && categoryFilter === 'all' && !urlCategory
+    );
+  }, [problems, searchQuery, difficultyFilter, categoryFilter, urlCategory]);
 
   const fetchProblems = async () => {
     try {
@@ -102,7 +121,7 @@ const Home = () => {
             <Code2 className="h-16 w-16 text-primary" />
           </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 gradient-text animate-fade-in">
-            Master Coding Interviews
+            Master the logic
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12 animate-fade-in">
             Explore curated coding problems with detailed solutions, explanations, and references.
@@ -146,6 +165,23 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Category Cards */}
+      {showCategoryCards && !loading && categories.length > 0 && (
+        <section className="pb-16 px-4">
+          <div className="container mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-10 gradient-text">
+              Browse by Category
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-fade-in">
+              {categories.map(category => {
+                const count = problems.filter(p => p.category === category).length;
+                return <CategoryCard key={category} category={category} problemCount={count} />;
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Problems Index Table */}
       <section className="pb-20 px-4">
         <div className="container mx-auto">
@@ -153,7 +189,7 @@ const Home = () => {
             <div className="flex items-center justify-center py-20">
               <div className="code-loader" />
             </div>
-          ) : filteredProblems.length > 0 ? (
+          ) : !showCategoryCards && filteredProblems.length > 0 ? (
             <div className="glass-card overflow-hidden animate-fade-in">
               <Table>
                 <TableHeader>
@@ -216,7 +252,7 @@ const Home = () => {
                 </TableBody>
               </Table>
             </div>
-          ) : (
+          ) : !showCategoryCards ? (
             <div className="text-center py-20">
               <Code2 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-2xl font-semibold mb-2">No problems found</h3>
@@ -226,7 +262,7 @@ const Home = () => {
                   : 'Check back soon for new problems'}
               </p>
             </div>
-          )}
+          ) : null}
         </div>
       </section>
 
