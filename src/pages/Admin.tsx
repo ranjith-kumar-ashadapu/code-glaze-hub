@@ -5,7 +5,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useAdminRole } from '@/hooks/useAdminRole';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Navigation from '@/components/Navigation';
+import CategoryManagement from '@/components/CategoryManagement';
 import { Plus, Edit, Trash2, Eye, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
@@ -119,86 +121,100 @@ const Admin = () => {
 
       <main className="container mx-auto px-4 pt-24 pb-20">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-8 animate-fade-in">
-            <div>
-              <h1 className="text-4xl font-bold gradient-text mb-2">Admin Dashboard</h1>
-              <p className="text-muted-foreground">Manage your coding problems</p>
-            </div>
-            <Button onClick={() => navigate('/admin/new')} size="lg" className="gap-2">
-              <Plus className="h-5 w-5" />
-              Add Problem
-            </Button>
+          <div className="mb-8 animate-fade-in">
+            <h1 className="text-4xl font-bold gradient-text mb-2">Admin Dashboard</h1>
+            <p className="text-muted-foreground">Manage your coding problems and categories</p>
           </div>
 
-          {loading ? (
-            <div className="flex items-center justify-center py-20">
-              <div className="code-loader" />
-            </div>
-          ) : problems.length > 0 ? (
-            <div className="grid grid-cols-1 gap-4 animate-fade-in-scale">
-              {problems.map((problem) => (
-                <Card key={problem.id} className="glass-card glass-hover">
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <CardTitle className="text-xl">{problem.title}</CardTitle>
-                          <Badge className={`${difficultyColors[problem.difficulty]} border`}>
-                            {problem.difficulty}
-                          </Badge>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          Created {new Date(problem.created_at).toLocaleDateString()}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={async () => {
-                            const slug = problem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-                            const { data } = await supabase.from('problems').select('category').eq('id', problem.id).single();
-                            const catSlug = data?.category ? data.category.toLowerCase().replace(/\s+/g, '-') : 'uncategorized';
-                            navigate(`/${catSlug}/${slug}`);
-                          }}
-                        >
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => navigate(`/admin/edit/${problem.id}`)}
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => setDeleteId(problem.id)}
-                        >
-                          <Trash2 className="h-4 w-4 text-destructive" />
-                        </Button>
-                      </div>
-                    </div>
-                  </CardHeader>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <Card className="glass-card text-center py-16">
-              <CardContent>
-                <Plus className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-2xl font-semibold mb-2">No problems yet</h3>
-                <p className="text-muted-foreground mb-6">
-                  Start by adding your first coding problem
-                </p>
-                <Button onClick={() => navigate('/admin/new')} className="gap-2">
-                  <Plus className="h-4 w-4" />
+          <Tabs defaultValue="problems" className="space-y-6">
+            <TabsList className="grid w-full max-w-md grid-cols-2">
+              <TabsTrigger value="problems">Problems</TabsTrigger>
+              <TabsTrigger value="categories">Categories</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="problems" className="space-y-6">
+              <div className="flex justify-end">
+                <Button onClick={() => navigate('/admin/new')} size="lg" className="gap-2">
+                  <Plus className="h-5 w-5" />
                   Add Problem
                 </Button>
-              </CardContent>
-            </Card>
-          )}
+              </div>
+
+              {loading ? (
+                <div className="flex items-center justify-center py-20">
+                  <div className="code-loader" />
+                </div>
+              ) : problems.length > 0 ? (
+                <div className="grid grid-cols-1 gap-4 animate-fade-in-scale">
+                  {problems.map((problem) => (
+                    <Card key={problem.id} className="glass-card glass-hover">
+                      <CardHeader>
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <CardTitle className="text-xl">{problem.title}</CardTitle>
+                              <Badge className={`${difficultyColors[problem.difficulty]} border`}>
+                                {problem.difficulty}
+                              </Badge>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              Created {new Date(problem.created_at).toLocaleDateString()}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={async () => {
+                                const slug = problem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                                const { data } = await supabase.from('problems').select('category').eq('id', problem.id).single();
+                                const catSlug = data?.category ? data.category.toLowerCase().replace(/\s+/g, '-') : 'uncategorized';
+                                navigate(`/${catSlug}/${slug}`);
+                              }}
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => navigate(`/admin/edit/${problem.id}`)}
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setDeleteId(problem.id)}
+                            >
+                              <Trash2 className="h-4 w-4 text-destructive" />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardHeader>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <Card className="glass-card text-center py-16">
+                  <CardContent>
+                    <Plus className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-2xl font-semibold mb-2">No problems yet</h3>
+                    <p className="text-muted-foreground mb-6">
+                      Start by adding your first coding problem
+                    </p>
+                    <Button onClick={() => navigate('/admin/new')} className="gap-2">
+                      <Plus className="h-4 w-4" />
+                      Add Problem
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
+
+            <TabsContent value="categories">
+              <CategoryManagement />
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
 

@@ -1,6 +1,8 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Code2, Database, Binary, Braces, FileCode, GitBranch } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface CategoryCardProps {
   category: string;
@@ -23,6 +25,24 @@ const categoryIcons: { [key: string]: any } = {
 const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCardProps) => {
   const navigate = useNavigate();
   const Icon = categoryIcons[category] || Code2;
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageError, setImageError] = useState(false);
+
+  useEffect(() => {
+    const fetchCategoryImage = async () => {
+      const { data } = await supabase
+        .from('categories')
+        .select('image_url')
+        .eq('name', category)
+        .maybeSingle();
+      
+      if (data?.image_url) {
+        setImageUrl(data.image_url);
+      }
+    };
+
+    fetchCategoryImage();
+  }, [category]);
 
   return (
     <Card 
@@ -30,8 +50,17 @@ const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCard
       onClick={() => navigate(`/${category.toLowerCase().replace(/\s+/g, '-')}`)}
     >
       <CardContent className="p-6 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary mb-4 group-hover:scale-110 transition-transform">
-          <Icon className="w-8 h-8" />
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary mb-4 group-hover:scale-110 transition-transform overflow-hidden">
+          {imageUrl && !imageError ? (
+            <img 
+              src={imageUrl} 
+              alt={category}
+              className="w-full h-full object-cover"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <Icon className="w-8 h-8" />
+          )}
         </div>
         <h3 className="text-xl font-semibold mb-2">{category}</h3>
         <p className="text-sm text-muted-foreground mb-3">

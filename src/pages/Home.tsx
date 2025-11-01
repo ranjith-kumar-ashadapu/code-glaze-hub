@@ -73,10 +73,13 @@ const Home = () => {
       const problemsData = (data || []) as Problem[];
       setProblems(problemsData);
       
-      // Extract unique categories
-      const uniqueCategories = Array.from(
-        new Set(problemsData.map(p => p.category).filter(Boolean))
-      ) as string[];
+      // Fetch categories from categories table
+      const { data: categoriesData } = await supabase
+        .from('categories')
+        .select('name')
+        .order('created_at', { ascending: false });
+      
+      const uniqueCategories = categoriesData?.map(c => c.name) || [];
       setCategories(uniqueCategories);
     } catch (error: any) {
       toast({
