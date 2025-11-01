@@ -174,8 +174,21 @@ const Home = () => {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-fade-in">
               {categories.map(category => {
-                const count = problems.filter(p => p.category === category).length;
-                return <CategoryCard key={category} category={category} problemCount={count} />;
+                const categoryProblems = problems.filter(p => p.category === category);
+                const count = categoryProblems.length;
+                const difficultyCounts = {
+                  Easy: categoryProblems.filter(p => p.difficulty === 'Easy').length,
+                  Medium: categoryProblems.filter(p => p.difficulty === 'Medium').length,
+                  Hard: categoryProblems.filter(p => p.difficulty === 'Hard').length,
+                };
+                return (
+                  <CategoryCard 
+                    key={category} 
+                    category={category} 
+                    problemCount={count}
+                    difficultyCounts={difficultyCounts}
+                  />
+                );
               })}
             </div>
           </div>

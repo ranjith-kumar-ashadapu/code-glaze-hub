@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Code2, LogOut, LogIn, Plus } from 'lucide-react';
+import { Code2, LogOut, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState, useEffect } from 'react';
@@ -29,21 +29,20 @@ const Navigation = () => {
 
   const handleSignOut = async () => {
     await signOut();
-    navigate('/');
+    navigate('/home');
   };
 
   return (
     <>
-      {/* Logo positioned absolutely at top-left */}
-      <Link to="/" className="fixed top-6 left-6 z-50 flex items-center gap-2 group glass-card px-4 py-3 animate-fade-in">
-        <Code2 className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
-        <span className="text-xl font-bold gradient-text">CodeGrid</span>
-      </Link>
-
-      {/* Category Navigation - centered */}
-      {categories.length > 0 && (
-        <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 glass-card px-6 py-3 animate-fade-in hidden lg:block">
-          <div className="flex items-center gap-4">
+      {/* Combined Logo and Category Navigation - positioned at top-left */}
+      <nav className="fixed top-6 left-6 z-50 flex items-center gap-4 glass-card px-4 py-3 animate-fade-in">
+        <Link to="/home" className="flex items-center gap-2 group border-r border-border/50 pr-4">
+          <Code2 className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
+          <span className="text-xl font-bold gradient-text">CodeGrid</span>
+        </Link>
+        
+        {categories.length > 0 && (
+          <div className="hidden lg:flex items-center gap-4">
             {categories.map(category => (
               <Link
                 key={category}
@@ -54,8 +53,8 @@ const Navigation = () => {
               </Link>
             ))}
           </div>
-        </nav>
-      )}
+        )}
+      </nav>
 
       {/* Admin actions positioned at top-right */}
       {user && (
