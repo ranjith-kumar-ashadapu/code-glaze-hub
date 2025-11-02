@@ -205,7 +205,7 @@ const Home = () => {
             <div className="flex items-center justify-center py-20">
               <div className="code-loader" />
             </div>
-          ) : filteredProblems.length > 0 ? (
+          ) : !showCategoryCards && filteredProblems.length > 0 ? (
             <div className="glass-card overflow-hidden animate-fade-in">
               <Table>
                 <TableHeader>
@@ -269,7 +269,7 @@ const Home = () => {
                 </TableBody>
               </Table>
             </div>
-          ) : (
+          ) : !showCategoryCards ? (
             <div className="text-center py-20">
               <Code2 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-2xl font-semibold mb-2">No problems found</h3>
@@ -279,7 +279,7 @@ const Home = () => {
                   : 'Check back soon for new problems'}
               </p>
             </div>
-          )}
+          ) : null}
         </div>
       </section>
 
