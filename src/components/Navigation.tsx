@@ -36,9 +36,12 @@ const Navigation = () => {
     <>
       {/* Combined Logo and Category Navigation - positioned at top-left */}
       <nav className="fixed top-6 left-6 z-50 flex items-center gap-4 glass-card px-4 py-3 animate-fade-in">
-        <Link to="/home" className="flex items-center gap-2 group border-r border-border/50 pr-4">
-          <Code2 className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
-          <span className="text-xl font-bold gradient-text">CodeGrid</span>
+        <Link to="/home" className="flex flex-col gap-1 group border-r border-border/50 pr-4">
+          <div className="flex items-center gap-2">
+            <Code2 className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
+            <span className="text-xl font-bold gradient-text">CodeGrid</span>
+          </div>
+          <span className="text-xs text-muted-foreground">Master the logic</span>
         </Link>
         
         {categories.length > 0 && (
