@@ -46,12 +46,12 @@ const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCard
 
   return (
     <Card 
-      className="glass-card glass-hover cursor-pointer group border-border/50 overflow-hidden"
+      className="glass-card glass-hover cursor-pointer group border-border/50 overflow-hidden aspect-square flex flex-col"
       onClick={() => navigate(`/${category.toLowerCase().replace(/\s+/g, '-')}`)}
     >
-      <CardContent className="p-0">
+      <CardContent className="p-0 flex flex-col h-full">
         {/* Image section - 75% of card */}
-        <div className="relative h-96 bg-primary/10 overflow-hidden">
+        <div className="relative flex-[3] bg-primary/10 overflow-hidden">
           {imageUrl && !imageError ? (
             <img 
               src={imageUrl} 
@@ -67,28 +67,28 @@ const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCard
         </div>
         
         {/* Info section - 25% of card */}
-        <div className="p-4">
-          <h3 className="text-lg font-semibold mb-2">{category}</h3>
-          <p className="text-sm text-muted-foreground mb-3">
+        <div className="flex-1 p-4 flex flex-col justify-center">
+          <h3 className="text-lg font-semibold mb-1">{category}</h3>
+          <p className="text-xs text-muted-foreground mb-2">
             {problemCount} {problemCount === 1 ? 'problem' : 'problems'}
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             {difficultyCounts.Easy > 0 && (
-              <div className="flex items-center justify-center w-7 h-7 rounded-full bg-green-500/10 border border-green-500/20">
+              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-green-500/10 border border-green-500/20">
                 <span className="text-xs font-semibold text-green-700 dark:text-green-400">
                   {difficultyCounts.Easy}
                 </span>
               </div>
             )}
             {difficultyCounts.Medium > 0 && (
-              <div className="flex items-center justify-center w-7 h-7 rounded-full bg-yellow-500/10 border border-yellow-500/20">
+              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-500/10 border border-yellow-500/20">
                 <span className="text-xs font-semibold text-yellow-700 dark:text-yellow-400">
                   {difficultyCounts.Medium}
                 </span>
               </div>
             )}
             {difficultyCounts.Hard > 0 && (
-              <div className="flex items-center justify-center w-7 h-7 rounded-full bg-red-500/10 border border-red-500/20">
+              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-red-500/10 border border-red-500/20">
                 <span className="text-xs font-semibold text-red-700 dark:text-red-400">
                   {difficultyCounts.Hard}
                 </span>
