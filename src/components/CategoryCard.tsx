@@ -51,7 +51,7 @@ const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCard
     >
       <CardContent className="p-0">
         {/* Image section - 75% of card */}
-        <div className="relative h-48 bg-primary/10 overflow-hidden">
+        <div className="relative h-96 bg-primary/10 overflow-hidden">
           {imageUrl && !imageError ? (
             <img 
               src={imageUrl} 
