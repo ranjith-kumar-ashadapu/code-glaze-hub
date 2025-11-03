@@ -52,6 +52,11 @@ const Home = () => {
         setCategoryFilter(matchingCategory);
         setShowCategoryCards(false);
       }
+    } else {
+      // Reset filters when navigating to /home
+      setCategoryFilter('all');
+      setSearchQuery('');
+      setDifficultyFilter('all');
     }
   }, [categorySlug, categories]);
 
