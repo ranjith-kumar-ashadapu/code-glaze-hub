@@ -1,14 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Code2, LogOut, Plus } from 'lucide-react';
+import { Code2, LogOut, Plus, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 const Navigation = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [categories, setCategories] = useState<string[]>([]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     fetchCategories();
@@ -44,6 +46,35 @@ const Navigation = () => {
           <span className="text-xs text-muted-foreground">Master the logic</span>
         </Link>
         
+        {/* Mobile hamburger menu */}
+        {categories.length > 0 && (
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="lg:hidden">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-80">
+              <SheetHeader>
+                <SheetTitle>Categories</SheetTitle>
+              </SheetHeader>
+              <div className="grid grid-cols-2 gap-3 mt-6">
+                {categories.map(category => (
+                  <Link
+                    key={category}
+                    to={`/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-4 text-center rounded-lg glass-card hover:bg-accent transition-colors"
+                  >
+                    <span className="text-sm font-medium">{category}</span>
+                  </Link>
+                ))}
+              </div>
+            </SheetContent>
+          </Sheet>
+        )}
+        
+        {/* Desktop category links */}
         {categories.length > 0 && (
           <div className="hidden lg:flex items-center gap-4">
             {categories.map(category => (

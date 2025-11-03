@@ -118,7 +118,7 @@ const Home = () => {
       <Navigation />
 
       {/* Filters Section */}
-      <section className="pt-24 pb-8 px-4">
+      <section className="pt-32 pb-8 px-4">
         <div className="container mx-auto">
           {/* Search and Filter */}
           <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 animate-fade-in-scale">
