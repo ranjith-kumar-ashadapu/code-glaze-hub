@@ -51,8 +51,9 @@ const Navigation = () => {
           {categories.length > 0 && (
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden">
+                <Button variant="ghost" size="sm" className="lg:hidden gap-2">
                   <Menu className="h-5 w-5" />
+                  <span>Categories</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-80">
