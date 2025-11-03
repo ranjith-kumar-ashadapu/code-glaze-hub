@@ -67,9 +67,9 @@ const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCard
         </div>
         
         {/* Info section - full height on mobile, 25% on desktop */}
-        <div className="flex-1 p-4 flex flex-col justify-center md:flex-[1]">
-          <h3 className="text-lg font-semibold mb-1">{category}</h3>
-          <p className="text-xs text-muted-foreground mb-2">
+        <div className="flex-1 p-4 flex flex-col justify-center items-center md:items-start md:flex-[1]">
+          <h3 className="text-lg font-semibold mb-1 text-center md:text-left">{category}</h3>
+          <p className="text-xs text-muted-foreground mb-2 text-center md:text-left">
             {problemCount} {problemCount === 1 ? 'problem' : 'problems'}
           </p>
           <div className="flex items-center gap-1.5">
