@@ -46,12 +46,12 @@ const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCard
 
   return (
     <Card 
-      className="glass-card glass-hover cursor-pointer group border-border/50 overflow-hidden aspect-square flex flex-col"
+      className="glass-card glass-hover cursor-pointer group border-border/50 overflow-hidden md:aspect-square flex flex-col"
       onClick={() => navigate(`/${category.toLowerCase().replace(/\s+/g, '-')}`)}
     >
       <CardContent className="p-0 flex flex-col h-full">
-        {/* Image section - 75% of card */}
-        <div className="relative flex-[3] bg-primary/10 overflow-hidden">
+        {/* Image section - 75% of card - hidden on mobile */}
+        <div className="relative hidden md:flex flex-[3] bg-primary/10 overflow-hidden">
           {imageUrl && !imageError ? (
             <img 
               src={imageUrl} 
@@ -66,8 +66,8 @@ const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCard
           )}
         </div>
         
-        {/* Info section - 25% of card */}
-        <div className="flex-1 p-4 flex flex-col justify-center">
+        {/* Info section - full height on mobile, 25% on desktop */}
+        <div className="flex-1 p-4 flex flex-col justify-center md:flex-[1]">
           <h3 className="text-lg font-semibold mb-1">{category}</h3>
           <p className="text-xs text-muted-foreground mb-2">
             {problemCount} {problemCount === 1 ? 'problem' : 'problems'}
