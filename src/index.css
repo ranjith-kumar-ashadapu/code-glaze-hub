@@ -133,6 +133,12 @@ All colors MUST be HSL.
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
   }
 
+  /* Enhanced focus states */
+  input:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-0 border-primary;
+  }
+
   /* Coding theme loader animation */
   .code-loader {
     @apply relative w-20 h-20;

@@ -128,19 +128,21 @@ const Home = () => {
           {/* Search and Filter */}
           <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 animate-fade-in-scale">
             <div className="md:col-span-2 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none" />
               <Input
                 placeholder="Search problems..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 glass-card h-12"
+                className="pl-12 pr-5 glass-card h-12 text-[15px] placeholder:text-muted-foreground/60 
+                  focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0 
+                  focus-visible:border-primary transition-all duration-200"
               />
             </div>
             <Select value={difficultyFilter} onValueChange={setDifficultyFilter}>
-              <SelectTrigger className="glass-card h-12">
+              <SelectTrigger className="glass-card h-12 px-4 text-[15px] hover:bg-muted/30 transition-colors">
                 <SelectValue placeholder="All Difficulties" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="z-50 bg-card border-border shadow-xl">
                 <SelectItem value="all">All Difficulties</SelectItem>
                 <SelectItem value="Easy">Easy</SelectItem>
                 <SelectItem value="Medium">Medium</SelectItem>
@@ -148,10 +150,10 @@ const Home = () => {
               </SelectContent>
             </Select>
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-              <SelectTrigger className="glass-card h-12">
+              <SelectTrigger className="glass-card h-12 px-4 text-[15px] hover:bg-muted/30 transition-colors">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="z-50 bg-card border-border shadow-xl">
                 <SelectItem value="all">All Categories</SelectItem>
                 {categories.map(category => (
                   <SelectItem key={category} value={category}>{category}</SelectItem>

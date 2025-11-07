@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Code2, LogOut, Plus, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
@@ -9,8 +9,18 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 const Navigation = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [categories, setCategories] = useState<string[]>([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     fetchCategories();
@@ -34,17 +44,24 @@ const Navigation = () => {
     navigate('/home');
   };
 
+  const isActiveCategory = (category: string) => {
+    const categorySlug = category.toLowerCase().replace(/\s+/g, '-');
+    return location.pathname === `/${categorySlug}`;
+  };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-card mx-6 my-6 px-4 py-3 animate-fade-in">
+    <nav className={`fixed top-0 left-0 right-0 z-50 glass-card mx-6 my-6 px-6 py-4 animate-fade-in transition-all duration-300 ${
+      isScrolled ? 'shadow-2xl shadow-primary/10' : ''
+    }`}>
       <div className="flex items-center justify-between">
         {/* Left side: Logo and Categories */}
-        <div className="flex items-center gap-4">
-          <Link to="/home" className="flex flex-col gap-1 group border-r border-border/50 pr-4">
+        <div className="flex items-center gap-6">
+          <Link to="/home" className="flex flex-col gap-1 group border-r border-border/50 pr-6 py-1 transition-transform hover:scale-[1.02]">
             <div className="flex items-center gap-2">
-              <Code2 className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
+              <Code2 className="h-7 w-7 text-primary transition-transform group-hover:scale-110" />
               <span className="text-xl font-bold gradient-text">CodeGrid</span>
             </div>
-            <span className="text-xs text-muted-foreground">Master the logic</span>
+            <span className="text-[15px] font-medium text-muted-foreground">Master the logic</span>
           </Link>
           
           {/* Mobile hamburger menu */}
@@ -78,16 +95,25 @@ const Navigation = () => {
           
           {/* Desktop category links */}
           {categories.length > 0 && (
-            <div className="hidden lg:flex items-center gap-4">
-              {categories.map(category => (
-                <Link
-                  key={category}
-                  to={`/${category.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {category}
-                </Link>
-              ))}
+            <div className="hidden lg:flex items-center gap-6">
+              {categories.map(category => {
+                const isActive = isActiveCategory(category);
+                return (
+                  <Link
+                    key={category}
+                    to={`/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                    className={`relative px-4 py-3 text-sm font-medium transition-all duration-200 rounded-lg
+                      ${isActive 
+                        ? 'text-primary bg-primary/5' 
+                        : 'text-muted-foreground hover:text-primary hover:bg-primary/5'
+                      }
+                      ${isActive ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px] after:bg-primary after:rounded-t-full' : ''}
+                    `}
+                  >
+                    {category}
+                  </Link>
+                );
+              })}
             </div>
           )}
         </div>
