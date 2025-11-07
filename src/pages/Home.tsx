@@ -162,21 +162,23 @@ const Home = () => {
             </Select>
           </div>
           
-          {/* Description text */}
-          <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-8 animate-fade-in">
-            Explore curated coding problems with detailed solutions, explanations, and references. Built for developers who want to excel.
-          </p>
+          {/* Hero Description */}
+          <div className="text-center max-w-4xl mx-auto mb-12 animate-fade-in">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
+              Browse by Category
+            </h1>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Explore curated coding problems with detailed solutions, explanations, and references. Built for developers who want to excel.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Category Cards */}
       {showCategoryCards && !loading && categories.length > 0 && (
         <section className="pb-16 px-4">
-          <div className="container mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-10 gradient-text">
-              Browse by Category
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-fade-in">
+          <div className="container mx-auto max-w-7xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 animate-fade-in">
               {categories.map(category => {
                 const categoryProblems = problems.filter(p => p.category === category);
                 const count = categoryProblems.length;

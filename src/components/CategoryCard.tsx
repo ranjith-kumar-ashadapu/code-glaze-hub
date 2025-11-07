@@ -28,6 +28,13 @@ const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCard
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [imageError, setImageError] = useState(false);
 
+  // Color-coded badge based on problem count
+  const getBadgeColor = () => {
+    if (problemCount <= 2) return 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-400 dark:border-emerald-800';
+    if (problemCount <= 5) return 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-400 dark:border-blue-800';
+    return 'bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-950 dark:text-purple-400 dark:border-purple-800';
+  };
+
   useEffect(() => {
     const fetchCategoryImage = async () => {
       const { data } = await supabase
@@ -46,7 +53,7 @@ const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCard
 
   return (
     <Card 
-      className="glass-card glass-hover cursor-pointer group border-border/50 overflow-hidden md:aspect-square flex flex-col"
+      className="glass-card cursor-pointer group border-border/50 overflow-hidden rounded-2xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] md:aspect-square flex flex-col min-h-[320px]"
       onClick={() => navigate(`/${category.toLowerCase().replace(/\s+/g, '-')}`)}
     >
       <CardContent className="p-0 flex flex-col h-full">
@@ -67,11 +74,11 @@ const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCard
         </div>
         
         {/* Info section - full height on mobile, 25% on desktop */}
-        <div className="flex-1 p-4 flex flex-col justify-center items-center md:items-start md:flex-[1]">
-          <h3 className="text-lg font-semibold mb-1 text-center md:text-left">{category}</h3>
-          <p className="text-xs text-muted-foreground mb-2 text-center md:text-left">
+        <div className="flex-1 p-5 flex flex-col justify-center items-center md:items-start md:flex-[1]">
+          <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{category}</h3>
+          <div className={`inline-flex items-center justify-center px-3 py-1.5 rounded-xl text-sm font-semibold border mb-3 shadow-sm ${getBadgeColor()}`}>
             {problemCount} {problemCount === 1 ? 'problem' : 'problems'}
-          </p>
+          </div>
           <div className="flex items-center gap-1.5">
             {difficultyCounts.Easy > 0 && (
               <div className="flex items-center justify-center w-6 h-6 rounded-full bg-green-500/10 border border-green-500/20">
