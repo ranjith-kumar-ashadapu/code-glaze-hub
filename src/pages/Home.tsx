@@ -123,10 +123,10 @@ const Home = () => {
       <Navigation />
 
       {/* Filters Section */}
-      <section className="pt-32 pb-8 px-4">
-        <div className="container mx-auto">
+      <section className="pt-32 pb-8 px-6 md:px-8">
+        <div className="container mx-auto max-w-[1440px]">
           {/* Search and Filter */}
-          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 animate-fade-in-scale">
+          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-6 animate-fade-in-scale">
             <div className="md:col-span-2 relative">
               <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none" />
               <Input
@@ -176,9 +176,9 @@ const Home = () => {
 
       {/* Category Cards */}
       {showCategoryCards && !loading && categories.length > 0 && (
-        <section className="pb-16 px-4">
-          <div className="container mx-auto max-w-7xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 animate-fade-in">
+        <section className="pb-20 px-6">
+          <div className="container mx-auto max-w-[1440px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8 xl:gap-10 animate-fade-in">
               {categories.map(category => {
                 const categoryProblems = problems.filter(p => p.category === category);
                 const count = categoryProblems.length;
@@ -202,8 +202,8 @@ const Home = () => {
       )}
 
       {/* Problems Index Table */}
-      <section className="pb-20 px-4">
-        <div className="container mx-auto">
+      <section className="pb-20 px-6 md:px-8">
+        <div className="container mx-auto max-w-[1440px]">
           {loading ? (
             <div className="flex items-center justify-center py-20">
               <div className="code-loader" />
@@ -287,8 +287,8 @@ const Home = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border/50 py-8 px-4">
-        <div className="container mx-auto text-center text-sm text-muted-foreground">
+      <footer className="border-t border-border/50 py-8 px-6 md:px-8">
+        <div className="container mx-auto max-w-[1440px] text-center text-sm text-muted-foreground">
           <p>© 2025 CodeGrid. Built with passion for developers.</p>
         </div>
       </footer>

@@ -139,6 +139,16 @@ All colors MUST be HSL.
     @apply outline-none ring-2 ring-primary ring-offset-0 border-primary;
   }
 
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Coding theme loader animation */
   .code-loader {
     @apply relative w-20 h-20;
