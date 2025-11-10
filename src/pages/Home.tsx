@@ -126,7 +126,7 @@ const Home = () => {
       <section className="pt-32 pb-8 px-6 md:px-8">
         <div className="container mx-auto max-w-[1440px]">
           {/* Search and Filter */}
-          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 mb-6 animate-fade-in-scale">
+          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 mb-6 animate-fade-in-scale">
             <div className="md:col-span-2 relative">
               <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none" />
               <Input
@@ -134,12 +134,13 @@ const Home = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-12 pr-5 glass-card h-12 text-[15px] placeholder:text-muted-foreground/60 
+                  shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10
                   focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0 
-                  focus-visible:border-primary transition-all duration-200"
+                  focus-visible:border-primary focus-visible:shadow-xl focus-visible:shadow-primary/10 transition-all duration-200"
               />
             </div>
             <Select value={difficultyFilter} onValueChange={setDifficultyFilter}>
-              <SelectTrigger className="glass-card h-12 px-4 text-[15px] hover:bg-muted/30 transition-colors">
+              <SelectTrigger className="glass-card h-12 px-4 text-[15px] shadow-lg shadow-primary/5 hover:bg-muted/30 hover:shadow-xl hover:shadow-primary/10 transition-all data-[state=open]:bg-primary/5 data-[state=open]:text-primary data-[state=open]:border-primary/30 data-[state=open]:shadow-xl data-[state=open]:shadow-primary/10">
                 <SelectValue placeholder="All Difficulties" />
               </SelectTrigger>
               <SelectContent className="z-50 bg-card border-border shadow-xl">
@@ -150,7 +151,7 @@ const Home = () => {
               </SelectContent>
             </Select>
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-              <SelectTrigger className="glass-card h-12 px-4 text-[15px] hover:bg-muted/30 transition-colors">
+              <SelectTrigger className="glass-card h-12 px-4 text-[15px] shadow-lg shadow-primary/5 hover:bg-muted/30 hover:shadow-xl hover:shadow-primary/10 transition-all data-[state=open]:bg-primary/5 data-[state=open]:text-primary data-[state=open]:border-primary/30 data-[state=open]:shadow-xl data-[state=open]:shadow-primary/10">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent className="z-50 bg-card border-border shadow-xl">
