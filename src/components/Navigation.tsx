@@ -50,7 +50,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 glass-card mx-6 my-6 px-6 py-4 animate-fade-in transition-all duration-300 ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 glass-card mx-6 my-6 px-6 py-2.5 animate-fade-in transition-all duration-300 ${
       isScrolled ? 'shadow-2xl shadow-primary/10' : ''
     }`}>
       <div className="flex items-center justify-between">
@@ -102,10 +102,10 @@ const Navigation = () => {
                   <Link
                     key={category}
                     to={`/${category.toLowerCase().replace(/\s+/g, '-')}`}
-                    className={`relative px-4 py-3 text-sm font-medium transition-all duration-200 rounded-lg
+                    className={`relative px-4 py-2 text-sm transition-all duration-200 rounded-lg
                       ${isActive 
-                        ? 'text-primary bg-primary/5' 
-                        : 'text-muted-foreground hover:text-primary hover:bg-primary/5'
+                        ? 'text-primary bg-primary/5 font-bold' 
+                        : 'text-muted-foreground hover:text-foreground hover:bg-accent font-medium'
                       }
                       ${isActive ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px] after:bg-primary after:rounded-t-full' : ''}
                     `}
