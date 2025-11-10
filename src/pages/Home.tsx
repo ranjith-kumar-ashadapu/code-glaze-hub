@@ -123,7 +123,7 @@ const Home = () => {
       <Navigation />
 
       {/* Filters Section */}
-      <section className="pt-32 pb-8 px-6 md:px-8">
+      <section className="pt-24 pb-6 px-6 md:px-8">
         <div className="container mx-auto max-w-[1440px]">
           {/* Search and Filter */}
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 mb-6 animate-fade-in-scale">
@@ -164,13 +164,14 @@ const Home = () => {
           </div>
           
           {/* Hero Description */}
-          <div className="text-center max-w-4xl mx-auto mb-12 animate-fade-in">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
+          <div className="text-center max-w-4xl mx-auto mb-8 animate-fade-in">
+            <h1 className="text-4xl md:text-5xl font-bold mb-3 gradient-text">
               Browse by Category
             </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-foreground/70 leading-relaxed">
               Explore curated coding problems with detailed solutions, explanations, and references. Built for developers who want to excel.
             </p>
+            <div className="mt-6 w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent mx-auto opacity-50" />
           </div>
         </div>
       </section>
