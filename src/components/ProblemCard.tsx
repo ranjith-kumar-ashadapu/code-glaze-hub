@@ -11,10 +11,10 @@ interface ProblemCardProps {
   category?: string | null;
 }
 
-const difficultyColors = {
-  Easy: 'bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20',
-  Medium: 'bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/20',
-  Hard: 'bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/20',
+const difficultyVariants = {
+  Easy: 'success' as const,
+  Medium: 'warning' as const,
+  Hard: 'error' as const,
 };
 
 const ProblemCard = ({ id, title, description, difficulty, createdAt, category }: ProblemCardProps) => {
@@ -31,27 +31,28 @@ const ProblemCard = ({ id, title, description, difficulty, createdAt, category }
   return (
     <Link to={`/${catSlug}/${slug}`}>
       <div className="glass-card glass-hover cursor-pointer group h-full animate-fade-in-scale">
-        <div className="flex items-start justify-between mb-4">
-          <Badge className={`${difficultyColors[difficulty]} border`}>
+        <div className="flex items-start justify-between mb-6">
+          <Badge variant={difficultyVariants[difficulty]} className="text-sm px-3 py-1">
             {difficulty}
           </Badge>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <Clock className="h-3 w-3" />
-            {date}
+          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <Clock className="h-4 w-4" />
+            <span>{date}</span>
           </div>
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 group-hover:gradient-text transition-all">
+        <h3 className="text-2xl font-bold mb-4 group-hover:gradient-text transition-all leading-tight">
           {title}
         </h3>
 
-        <p className="text-muted-foreground text-sm leading-relaxed">
+        <p className="text-muted-foreground leading-relaxed mb-6">
           {preview}
         </p>
 
-        <div className="mt-4 pt-4 border-t border-border/50">
-          <span className="text-sm font-medium text-primary group-hover:underline">
-            View Solution →
+        <div className="mt-auto pt-6 border-t border-border/50">
+          <span className="text-sm font-semibold text-primary group-hover:text-primary-hover transition-colors inline-flex items-center gap-2">
+            View Solution
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
           </span>
         </div>
       </div>
