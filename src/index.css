@@ -9,40 +9,40 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Base Colors */
-    --background: 220 25% 97%;
-    --foreground: 230 20% 15%;
+    --background: 240 33% 98%; /* #F7F7FB - Background Light */
+    --foreground: 221 39% 11%; /* #111827 - Text Primary */
 
     /* Surface Colors */
-    --card: 0 0% 100%;
-    --card-foreground: 230 20% 15%;
-    --card-hover: 220 25% 98%;
+    --card: 0 0% 100%; /* #FFFFFF - Card White */
+    --card-foreground: 221 39% 11%; /* #111827 - Text Primary */
+    --card-hover: 240 33% 96%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 230 20% 15%;
+    --popover-foreground: 221 39% 11%;
 
     /* Brand Colors */
-    --primary: 237 83% 60%;
+    --primary: 258 69% 50%; /* #6D28D9 - Primary Purple */
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 237 83% 55%;
-    --primary-light: 237 83% 70%;
-    --primary-dark: 237 83% 50%;
+    --primary-hover: 263 69% 42%; /* #5B21B6 - Dark Purple */
+    --primary-light: 251 91% 95%; /* #EDE9FE - Light Lavender */
+    --primary-dark: 263 69% 42%; /* #5B21B6 - Dark Purple */
 
-    --secondary: 270 60% 65%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-hover: 270 60% 60%;
-    --secondary-light: 270 60% 75%;
-    --secondary-dark: 270 60% 55%;
+    --secondary: 172 67% 50%; /* #2DD4BF - Aqua Mint */
+    --secondary-foreground: 221 39% 11%;
+    --secondary-hover: 172 67% 45%;
+    --secondary-light: 167 84% 89%; /* #CCFBF1 - Soft Mint */
+    --secondary-dark: 172 67% 40%;
 
-    --accent: 280 70% 70%;
-    --accent-foreground: 0 0% 100%;
-    --accent-hover: 280 70% 65%;
-    --accent-light: 280 70% 80%;
-    --accent-dark: 280 70% 60%;
+    --accent: 172 67% 50%; /* #2DD4BF - Aqua Mint (highlight) */
+    --accent-foreground: 221 39% 11%;
+    --accent-hover: 172 67% 45%;
+    --accent-light: 167 84% 89%; /* #CCFBF1 - Soft Mint */
+    --accent-dark: 172 67% 40%;
 
     /* Muted/Subtle Colors */
-    --muted: 220 15% 94%;
-    --muted-foreground: 220 10% 45%;
-    --muted-hover: 220 15% 90%;
+    --muted: 220 13% 91%; /* #E5E7EB - Border Light */
+    --muted-foreground: 214 9% 46%; /* #6B7280 - Text Secondary */
+    --muted-hover: 220 13% 88%;
 
     /* Semantic Colors */
     --success: 142 76% 36%;
@@ -66,22 +66,22 @@ All colors MUST be HSL.
     --destructive-foreground: 0 0% 100%;
 
     /* Interactive Elements */
-    --border: 220 20% 88%;
-    --border-hover: 220 20% 78%;
-    --input: 220 20% 88%;
-    --ring: 237 83% 60%;
-    --link: 237 83% 60%;
-    --link-hover: 237 83% 50%;
+    --border: 220 13% 91%; /* #E5E7EB - Border Light */
+    --border-hover: 220 13% 80%;
+    --input: 220 13% 91%; /* #E5E7EB - Border Light */
+    --ring: 258 69% 50%; /* #6D28D9 - Primary Purple */
+    --link: 258 69% 50%; /* #6D28D9 - Primary Purple */
+    --link-hover: 263 69% 42%; /* #5B21B6 - Dark Purple */
 
     /* Glass Effect */
     --glass-bg: 0 0% 100% / 0.7;
-    --glass-border: 220 20% 88% / 0.5;
-    --glass-shadow: 237 83% 60% / 0.1;
+    --glass-border: 220 13% 91% / 0.5;
+    --glass-shadow: 258 69% 50% / 0.1;
 
     /* Gradients */
-    --gradient-start: 237 83% 60%;
-    --gradient-end: 270 60% 65%;
-    --gradient-accent: 280 70% 70%;
+    --gradient-start: 258 69% 50%; /* #6D28D9 */
+    --gradient-end: 172 67% 50%; /* #2DD4BF */
+    --gradient-accent: 251 91% 95%; /* #EDE9FE */
 
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 hsl(220 20% 15% / 0.05);
