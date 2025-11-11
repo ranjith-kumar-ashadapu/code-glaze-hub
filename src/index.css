@@ -9,7 +9,8 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Base Colors */
-    --background: 240 33% 98%; /* #F7F7FB - Background Light */
+    --background: 240 33% 98%; /* #F7F7FB - Main Background */
+    --background-alt: 253 33% 96%; /* #F3F1FA - Alternate Section Background */
     --foreground: 221 39% 11%; /* #111827 - Text Primary */
 
     /* Surface Colors */
@@ -74,7 +75,7 @@ All colors MUST be HSL.
     --link-hover: 263 69% 42%; /* #5B21B6 - Dark Purple */
 
     /* Glass Effect */
-    --glass-bg: 0 0% 100% / 0.7;
+    --glass-bg: 0 0% 100% / 0.75; /* rgba(255,255,255,0.75) - Navbar */
     --glass-border: 220 13% 91% / 0.5;
     --glass-shadow: 258 69% 50% / 0.1;
 
@@ -82,6 +83,10 @@ All colors MUST be HSL.
     --gradient-start: 258 69% 50%; /* #6D28D9 */
     --gradient-end: 172 67% 50%; /* #2DD4BF */
     --gradient-accent: 251 91% 95%; /* #EDE9FE */
+
+    /* Footer */
+    --footer-bg: 260 24% 14%; /* #1E1A29 - Footer Background */
+    --footer-foreground: 0 0% 95%;
 
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 hsl(220 20% 15% / 0.05);

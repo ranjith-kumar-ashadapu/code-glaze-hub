@@ -20,7 +20,10 @@ export default {
         },
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: {
+          DEFAULT: "hsl(var(--background))",
+          alt: "hsl(var(--background-alt))",
+        },
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -94,6 +97,10 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
+        footer: {
+          DEFAULT: "hsl(var(--footer-bg))",
+          foreground: "hsl(var(--footer-foreground))",
         },
       },
       fontSize: {
