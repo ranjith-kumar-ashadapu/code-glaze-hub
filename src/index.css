@@ -250,7 +250,7 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-gradient-to-br from-background via-background to-muted text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased;
   }
 }
 
