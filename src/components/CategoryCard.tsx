@@ -48,7 +48,7 @@ const CategoryCard = ({
     };
     fetchCategoryImage();
   }, [category]);
-  return <Card onClick={() => navigate(`/${category.toLowerCase().replace(/\s+/g, '-')}`)} className="glass-card cursor-pointer group border-border/50 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] md:aspect-square flex flex-col min-h-[320px] mx-0 py-0 px-px rounded bg-[#f0e9ff]">
+  return <Card onClick={() => navigate(`/${category.toLowerCase().replace(/\s+/g, '-')}`)} className="glass-card cursor-pointer group border-border/50 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] md:aspect-square flex flex-col min-h-[320px] mx-0 py-0 px-px bg-[#f0e9ff] rounded">
       <CardContent className="p-0 flex flex-col h-full">
         {/* Image section - 75% of card - hidden on mobile */}
         <div className="relative hidden md:flex flex-[3] bg-primary/10 overflow-hidden">
@@ -58,7 +58,7 @@ const CategoryCard = ({
         </div>
         
         {/* Info section - full height on mobile, 25% on desktop */}
-        <div className="flex-1 p-5 flex flex-col justify-center items-center md:items-start md:flex-[1] bg-[#1c1230]">
+        <div className="flex-1 p-5 flex flex-col justify-center items-center md:items-start md:flex-[1]">
           <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{category}</h3>
           <div className={`inline-flex items-center justify-center px-3 py-1.5 rounded-xl text-sm font-semibold border mb-3 shadow-sm ${getBadgeColor()}`}>
             {problemCount} {problemCount === 1 ? 'problem' : 'problems'}
