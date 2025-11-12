@@ -155,7 +155,7 @@ const Home = () => {
 
       {/* Category Cards */}
       {showCategoryCards && !loading && categories.length > 0 && <section className="pb-20 px-6 bg-violet-500 my-0">
-          <div className="container mx-auto max-w-[1440px] my-0 py-[10px]">
+          <div className="container mx-auto max-w-[1440px] my-0 py-[25px]">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8 xl:gap-10 animate-fade-in">
               {categories.map(category => {
             const categoryProblems = problems.filter(p => p.category === category);
