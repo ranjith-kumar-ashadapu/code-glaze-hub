@@ -104,11 +104,11 @@ const Home = () => {
     setFilteredProblems(filtered);
   };
   return <div className="min-h-screen">
-      <Navigation className="bg-purple-200" />
+      <Navigation className="bg-[#0f051e]" />
 
       {/* Filters Section */}
       <section className="pt-32 pb-6 px-6 md:px-8 bg-[#0f051e]">
-        <div className="container max-w-[1440px] mx-0 my-[25px]">
+        <div className="container max-w-[1440px] mx-0 my-[25px] bg-[#0f051e]">
           {/* Search and Filter */}
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 mb-6 animate-fade-in-scale">
             <div className="md:col-span-2 relative">
@@ -145,7 +145,7 @@ const Home = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-3 gradient-text">
               Browse by Category
             </h1>
-            <p className="text-lg text-foreground/70 leading-relaxed">
+            <p className="leading-relaxed text-slate-50 font-light text-lg text-center">
               Explore curated coding problems with detailed solutions, explanations, and references. Built for developers who want to excel.
             </p>
             <div className="mt-6 w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent mx-auto opacity-50" />
