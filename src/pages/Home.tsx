@@ -104,11 +104,11 @@ const Home = () => {
     setFilteredProblems(filtered);
   };
   return <div className="min-h-screen">
-      <Navigation className="bg-[#0f051e]" />
+      <Navigation className="bg-purple-200" />
 
       {/* Filters Section */}
-      <section className="pt-32 pb-6 px-6 md:px-8 bg-[#0f051e]">
-        <div className="container max-w-[1440px] mx-0 my-[25px] bg-[#0f051e]">
+      <section className="pt-32 pb-6 px-6 md:px-8 bg-purple-200">
+        <div className="container max-w-[1440px] mx-0 my-[25px]">
           {/* Search and Filter */}
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 mb-6 animate-fade-in-scale">
             <div className="md:col-span-2 relative">
@@ -145,7 +145,7 @@ const Home = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-3 gradient-text">
               Browse by Category
             </h1>
-            <p className="leading-relaxed text-slate-50 font-light text-lg text-center">
+            <p className="text-lg text-foreground/70 leading-relaxed">
               Explore curated coding problems with detailed solutions, explanations, and references. Built for developers who want to excel.
             </p>
             <div className="mt-6 w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent mx-auto opacity-50" />
@@ -154,8 +154,8 @@ const Home = () => {
       </section>
 
       {/* Category Cards */}
-      {showCategoryCards && !loading && categories.length > 0 && <section className="pb-20 px-6 my-0 bg-[#0f051e]">
-          <div className="container mx-auto max-w-[1440px] my-0 py-[25px]">
+      {showCategoryCards && !loading && categories.length > 0 && <section className="pb-20 px-6 bg-violet-500">
+          <div className="container mx-auto max-w-[1440px]">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8 xl:gap-10 animate-fade-in">
               {categories.map(category => {
             const categoryProblems = problems.filter(p => p.category === category);
@@ -172,11 +172,11 @@ const Home = () => {
         </section>}
 
       {/* Problems Index Table */}
-      <section className="pb-20 px-6 md:px-8 bg-[#0f051e]">
-        <div className="container mx-auto max-w-[1440px] py-[10px]">
+      <section className="pb-20 px-6 md:px-8 bg-violet-500">
+        <div className="container mx-auto max-w-[1440px]">
           {loading ? <div className="flex items-center justify-center py-20">
               <div className="code-loader" />
-            </div> : !showCategoryCards && filteredProblems.length > 0 ? <div className="glass-card overflow-hidden animate-fade-in py-0">
+            </div> : !showCategoryCards && filteredProblems.length > 0 ? <div className="glass-card overflow-hidden animate-fade-in">
               <Table>
                 <TableHeader>
                   <TableRow className="border-border/50 hover:bg-transparent">
@@ -236,7 +236,7 @@ const Home = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border/50 py-8 px-6 md:px-8 bg-indigo-950">
+      <footer className="border-t border-border/50 py-8 px-6 md:px-8 bg-purple-600">
         <div className="container mx-auto max-w-[1440px] text-center text-sm text-muted-foreground">
           <p className="text-lg font-semibold text-slate-50">© 2025 CodeGrid. Built with passion for developers.</p>
         </div>
