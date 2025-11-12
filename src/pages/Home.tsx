@@ -173,10 +173,10 @@ const Home = () => {
 
       {/* Problems Index Table */}
       <section className="pb-20 px-6 md:px-8 bg-violet-500">
-        <div className="container mx-auto max-w-[1440px]">
+        <div className="container mx-auto max-w-[1440px] py-[10px]">
           {loading ? <div className="flex items-center justify-center py-20">
               <div className="code-loader" />
-            </div> : !showCategoryCards && filteredProblems.length > 0 ? <div className="glass-card overflow-hidden animate-fade-in">
+            </div> : !showCategoryCards && filteredProblems.length > 0 ? <div className="glass-card overflow-hidden animate-fade-in py-0">
               <Table>
                 <TableHeader>
                   <TableRow className="border-border/50 hover:bg-transparent">
