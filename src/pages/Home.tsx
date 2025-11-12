@@ -107,7 +107,7 @@ const Home = () => {
       <Navigation className="bg-purple-200" />
 
       {/* Filters Section */}
-      <section className="pt-32 pb-6 px-6 md:px-8 bg-purple-200">
+      <section className="pt-32 pb-6 px-6 md:px-8 bg-[#f8f6ff]">
         <div className="container max-w-[1440px] mx-0 my-[25px]">
           {/* Search and Filter */}
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 mb-6 animate-fade-in-scale">
@@ -154,8 +154,8 @@ const Home = () => {
       </section>
 
       {/* Category Cards */}
-      {showCategoryCards && !loading && categories.length > 0 && <section className="pb-20 px-6 bg-violet-500">
-          <div className="container mx-auto max-w-[1440px]">
+      {showCategoryCards && !loading && categories.length > 0 && <section className="pb-20 px-6 my-0 bg-[#f8f6ff]">
+          <div className="container mx-auto max-w-[1440px] my-0 py-[25px]">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8 xl:gap-10 animate-fade-in">
               {categories.map(category => {
             const categoryProblems = problems.filter(p => p.category === category);
@@ -172,11 +172,11 @@ const Home = () => {
         </section>}
 
       {/* Problems Index Table */}
-      <section className="pb-20 px-6 md:px-8 bg-violet-500">
-        <div className="container mx-auto max-w-[1440px]">
+      <section className="pb-20 px-6 md:px-8 bg-[#f8f6ff]">
+        <div className="container mx-auto max-w-[1440px] py-[10px]">
           {loading ? <div className="flex items-center justify-center py-20">
               <div className="code-loader" />
-            </div> : !showCategoryCards && filteredProblems.length > 0 ? <div className="glass-card overflow-hidden animate-fade-in">
+            </div> : !showCategoryCards && filteredProblems.length > 0 ? <div className="glass-card overflow-hidden animate-fade-in py-0">
               <Table>
                 <TableHeader>
                   <TableRow className="border-border/50 hover:bg-transparent">
