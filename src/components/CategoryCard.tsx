@@ -48,7 +48,7 @@ const CategoryCard = ({
     };
     fetchCategoryImage();
   }, [category]);
-  return <Card onClick={() => navigate(`/${category.toLowerCase().replace(/\s+/g, '-')}`)} className="glass-card cursor-pointer group border-border/50 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] md:aspect-square flex flex-col min-h-[320px] mx-0 py-0 px-px bg-[#f0e9ff] rounded">
+  return <Card onClick={() => navigate(`/${category.toLowerCase().replace(/\s+/g, '-')}`)} className="glass-card cursor-pointer group border-border/50 overflow-hidden rounded-2xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] md:aspect-square flex flex-col min-h-[320px] mx-0 py-0 px-px">
       <CardContent className="p-0 flex flex-col h-full">
         {/* Image section - 75% of card - hidden on mobile */}
         <div className="relative hidden md:flex flex-[3] bg-primary/10 overflow-hidden">
