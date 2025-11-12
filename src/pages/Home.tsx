@@ -107,7 +107,7 @@ const Home = () => {
       <Navigation className="bg-[#1c1230]" />
 
       {/* Filters Section */}
-      <section className="pt-32 pb-6 px-6 md:px-8 bg-[t#F8F6FF] bg-[#0f051e]">
+      <section className="pt-32 pb-6 px-6 md:px-8 bg-[t#F8F6FF] bg-slate-200">
         <div className="container max-w-[1440px] mx-0 my-[25px]">
           {/* Search and Filter */}
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 mb-6 animate-fade-in-scale">
@@ -154,7 +154,7 @@ const Home = () => {
       </section>
 
       {/* Category Cards */}
-      {showCategoryCards && !loading && categories.length > 0 && <section className="pb-20 px-6 my-0 bg-[#0f051e]">
+      {showCategoryCards && !loading && categories.length > 0 && <section className="pb-20 px-6 my-0 bg-slate-200">
           <div className="container mx-auto max-w-[1440px] my-0 py-[25px]">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8 xl:gap-10 animate-fade-in">
               {categories.map(category => {
@@ -172,7 +172,7 @@ const Home = () => {
         </section>}
 
       {/* Problems Index Table */}
-      <section className="pb-20 px-6 md:px-8 bg-[#0f051e]">
+      <section className="pb-20 px-6 md:px-8 bg-slate-200">
         <div className="container mx-auto max-w-[1440px] py-[10px]">
           {loading ? <div className="flex items-center justify-center py-20">
               <div className="code-loader" />
