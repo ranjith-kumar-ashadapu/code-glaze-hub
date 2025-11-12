@@ -107,7 +107,7 @@ const Home = () => {
       <Navigation className="bg-purple-200" />
 
       {/* Filters Section */}
-      <section className="pt-32 pb-6 px-6 md:px-8 bg-purple-200">
+      <section className="pt-32 pb-6 px-6 md:px-8 bg-purple-400">
         <div className="container max-w-[1440px] mx-0 my-[25px]">
           {/* Search and Filter */}
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 mb-6 animate-fade-in-scale">
