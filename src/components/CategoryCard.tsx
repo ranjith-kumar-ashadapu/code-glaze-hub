@@ -58,7 +58,7 @@ const CategoryCard = ({
         </div>
         
         {/* Info section - full height on mobile, 25% on desktop */}
-        <div className="flex-1 p-5 flex flex-col justify-center items-center md:items-start md:flex-[1]">
+        <div className="flex-1 p-5 flex flex-col justify-center items-center md:items-start md:flex-[1] bg-[#1c1230]">
           <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{category}</h3>
           <div className={`inline-flex items-center justify-center px-3 py-1.5 rounded-xl text-sm font-semibold border mb-3 shadow-sm ${getBadgeColor()}`}>
             {problemCount} {problemCount === 1 ? 'problem' : 'problems'}
