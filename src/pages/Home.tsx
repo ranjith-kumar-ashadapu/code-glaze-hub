@@ -238,7 +238,7 @@ const Home = () => {
       {/* Footer */}
       <footer className="border-t border-border/50 py-8 px-6 md:px-8 bg-purple-600">
         <div className="container mx-auto max-w-[1440px] text-center text-sm text-muted-foreground">
-          <p>© 2025 CodeGrid. Built with passion for developers.</p>
+          <p className="text-lg font-semibold text-slate-50">© 2025 CodeGrid. Built with passion for developers.</p>
         </div>
       </footer>
     </div>;
