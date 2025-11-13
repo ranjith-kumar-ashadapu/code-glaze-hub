@@ -53,28 +53,30 @@ const CategoryCard = ({ category, problemCount, difficultyCounts }: CategoryCard
 
   return (
     <Card 
-      className="glass-card cursor-pointer group border-border/50 overflow-hidden rounded-2xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] md:aspect-square flex flex-col min-h-[320px]"
+      className="glass-card p-0 cursor-pointer group border-border/50 overflow-hidden rounded-2xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] md:aspect-square flex flex-col min-h-[320px]"
       onClick={() => navigate(`/${category.toLowerCase().replace(/\s+/g, '-')}`)}
     >
       <CardContent className="p-0 flex flex-col h-full">
-        {/* Image section - 75% of card - hidden on mobile */}
-        <div className="relative hidden md:flex flex-[3] bg-primary/10 overflow-hidden">
-          {imageUrl && !imageError ? (
-            <img 
-              src={imageUrl} 
-              alt={category}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <Icon className="w-20 h-20 text-primary" />
-            </div>
-          )}
+        {/* Image section with 12px inset from card edges */}
+        <div className="px-0 pt-0">
+          <div className="relative w-full overflow-hidden rounded-xl border border-border/60 bg-card aspect-[16/9]">
+            {imageUrl && !imageError ? (
+              <img 
+                src={imageUrl} 
+                alt={category}
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[hsl(var(--gradient-start))]/15 to-[hsl(var(--gradient-end))]/15">
+                <Icon className="w-14 h-14 text-primary" />
+              </div>
+            )}
+          </div>
         </div>
         
-        {/* Info section - full height on mobile, 25% on desktop */}
-        <div className="flex-1 p-5 flex flex-col justify-center items-center md:items-start md:flex-[1]">
+        {/* Info section */}
+        <div className="flex-1 px-5 pb-5 pt-4 flex flex-col justify-center items-center md:items-start">
           <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{category}</h3>
           <div className={`inline-flex items-center justify-center px-3 py-1.5 rounded-xl text-sm font-semibold border mb-3 shadow-sm ${getBadgeColor()}`}>
             {problemCount} {problemCount === 1 ? 'problem' : 'problems'}

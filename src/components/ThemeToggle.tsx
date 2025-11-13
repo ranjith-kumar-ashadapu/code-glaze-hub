@@ -19,14 +19,23 @@ export function ThemeToggle() {
   const isDark = theme === "dark";
 
   return (
-    <div className="flex items-center gap-2">
-      <Sun className="h-4 w-4 text-muted-foreground" />
+    <div className="relative inline-flex">
       <Switch
         checked={isDark}
         onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
         aria-label="Toggle theme"
+        className="h-6 w-11"
       />
-      <Moon className="h-4 w-4 text-muted-foreground" />
+      <Sun
+        className={`pointer-events-none absolute left-1.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 transition-all duration-200 ${
+          isDark ? "opacity-0 scale-75" : "opacity-100 scale-100 text-foreground"
+        }`}
+      />
+      <Moon
+        className={`pointer-events-none absolute right-1.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 transition-all duration-200 ${
+          isDark ? "opacity-100 scale-100 text-foreground" : "opacity-0 scale-75"
+        }`}
+      />
     </div>
   );
 }

@@ -51,13 +51,13 @@ const Navigation = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 glass-card mx-6 my-6 px-6 py-2.5 animate-fade-in transition-all duration-300 ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 glass-card mx-4 my-2 px-6 py-1 animate-fade-in transition-all duration-300 ${
       isScrolled ? 'shadow-2xl shadow-primary/10' : ''
     }`}>
       <div className="flex items-center justify-between">
         {/* Left side: Logo and Categories */}
         <div className="flex items-center gap-6">
-          <Link to="/home" className="flex flex-col gap-1 group border-r border-border/50 pr-6 py-1 transition-transform hover:scale-[1.02]">
+          <Link to="/home" className="flex flex-col gap-0.5 group border-r border-border/50 pr-6 py-0.5 transition-transform hover:scale-[1.02]">
             <div className="flex items-center gap-2">
               <Code2 className="h-7 w-7 text-primary transition-transform group-hover:scale-110" />
               <span className="text-xl font-bold gradient-text">CodeGrid</span>
